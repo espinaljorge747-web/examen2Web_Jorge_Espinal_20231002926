@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MedicamentoController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -20,9 +21,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/catalogo', function () {
-        return view('layouts.catalogo');
-    })->name('catalogo');
+
+    Route::resource('catalogo', MedicamentoController::class)
+        ->parameters(['catalogo' => 'medicamento'])
+        ->names('catalogo');
+
 
     Route::get('/proveedores', function () {
         return view('layouts.proveedores');
