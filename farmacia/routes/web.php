@@ -1,33 +1,34 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('layouts.index');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 });
 
-Route::get('/catalogo', function () {
-    return view('layouts.catalogo');
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/', function () {
+        return view('layouts.index');
+    })->name('home');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/catalogo', function () {
+        return view('layouts.catalogo');
+    })->name('catalogo');
+
+    Route::get('/proveedores', function () {
+        return view('layouts.proveedores');
+    })->name('proveedores');
+
+    Route::get('/empleados', function () {
+        return view('layouts.empleados');
+    })->name('empleados');
 });
-
-Route::get('/empleados', function () {
-    return view('layouts.empleados');
-});
-
-Route::get('/login', function () {
-    return view('layouts.login');
-});
-
-Route::get('/proveedores', function () {
-    return view('layouts.proveedores');
-});
-
-Route::get('/dashboard', function () {
-    return view('layouts.dashboard');
-});
-
-
-
-
-
-
