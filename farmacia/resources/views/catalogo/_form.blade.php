@@ -78,7 +78,6 @@
             @if ($medicamento->imagen)
                 <div class="mb-2">
                     <img src="{{ asset('uploads/medicamentos/' . $medicamento->imagen) }}" alt="Imagen actual" class="img-thumbnail" style="width: 90px; height: 90px; object-fit: cover;">
-                    <span class="small text-muted ms-2">Imagen actual. Si subes otra, reemplazará esta.</span>
                 </div>
             @endif
             <input id="imagen" type="file" name="imagen" accept=".jpg,.jpeg,.png,.webp"

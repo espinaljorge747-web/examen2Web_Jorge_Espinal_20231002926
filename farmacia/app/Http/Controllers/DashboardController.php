@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empleado;
+use App\Models\Medicamento;
+use App\Models\Proveedor;
+use Illuminate\Support\Facades\DB;
+
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('layouts.dashboard', [
-            'totalMedicamentos' => 0,
-            'proveedoresActivos' => 0,
-            'totalEmpleados' => 0,
-            'valorInventario' => 0,
+        return view('dashboard', [
+            'totalMedicamentos' => Medicamento::count(),
+            'proveedoresActivos' => Proveedor::where('estado', 'Activo')->count(),
+            'totalEmpleados' => Empleado::where('estado', 'Activo')->count(),
+            'valorInventario' => Medicamento::query()
+                ->selectRaw('COALESCE(SUM(inventario * precio), 0) AS total')
+                ->value('total'),
         ]);
     }
 }
