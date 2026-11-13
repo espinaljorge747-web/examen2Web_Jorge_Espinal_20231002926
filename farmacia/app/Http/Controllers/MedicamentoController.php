@@ -89,7 +89,7 @@ class MedicamentoController extends Controller
             'laboratorio' => ['required', 'string', 'max:255'],
             'fecha_vencimiento' => ['required', 'date'],
             'numero_lote' => ['required', 'string', 'max:50'],
-        ], $this->mensajes(), $this->atributos());
+        ]);
     }
 
     private function guardarImagen($archivo): string
@@ -109,36 +109,4 @@ class MedicamentoController extends Controller
         }
     }
 
-    private function mensajes(): array
-    {
-        return [
-            'required' => 'El :attribute es obligatorio.',
-            'unique' => 'Ya existe un registro con este :attribute.',
-            'gt' => 'El :attribute debe ser mayor que cero.',
-            'min' => 'El :attribute no puede ser negativo.',
-            'numeric' => 'El :attribute debe ser un número.',
-            'integer' => 'El :attribute debe ser un número entero.',
-            'date' => 'La :attribute debe ser una fecha válida.',
-            'in' => 'Selecciona una :attribute válida.',
-            'image' => 'El archivo debe ser una imagen.',
-            'mimes' => 'La imagen debe ser JPG, PNG o WEBP.',
-            'imagen.max' => 'La imagen no debe superar 5 MB.',
-        ];
-    }
-
-    private function atributos(): array
-    {
-        return [
-            'codigo' => 'código SKU',
-            'nombre' => 'nombre',
-            'categoria' => 'categoría',
-            'precio' => 'precio',
-            'costo' => 'costo',
-            'inventario' => 'inventario',
-            'imagen' => 'imagen',
-            'laboratorio' => 'laboratorio',
-            'fecha_vencimiento' => 'fecha de vencimiento',
-            'numero_lote' => 'número de lote',
-        ];
-    }
 }

@@ -5,8 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MedicamentoController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\EmpleadoController;
 
-// PÚBLICAS: solo invitados (sin sesión)
+
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -14,7 +15,6 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 });
 
-// PROTEGIDAS: solo usuarios autenticados
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
         ->parameters(['proveedores' => 'proveedor'])
         ->names('proveedores');
 
-    Route::get('/empleados', function () {
-        return view('layouts.empleados');
-    })->name('empleados');
+    Route::resource('empleados', EmpleadoController::class)
+        ->parameters(['empleados' => 'empleado'])
+        ->names('empleados');
 });

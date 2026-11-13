@@ -39,7 +39,7 @@ class ProveedorController extends Controller
             'limite_credito' => ['required', 'numeric', 'min:0'],
             'dias_credito' => ['required', 'in:15,30,45,60'],
             'estado' => ['required', 'in:Activo,Inactivo'],
-        ], self::MENSAJES, self::ATRIBUTOS);
+        ]);
 
         $datos['fecha_registro'] = now()->toDateString();
 
@@ -65,7 +65,7 @@ class ProveedorController extends Controller
             'limite_credito' => ['required', 'numeric', 'min:0'],
             'dias_credito' => ['required', 'in:15,30,45,60'],
             'estado' => ['required', 'in:Activo,Inactivo'],
-        ], self::MENSAJES, self::ATRIBUTOS);
+        ]);
 
         $proveedor->update($datos);
 
@@ -80,26 +80,5 @@ class ProveedorController extends Controller
         return redirect()->route('proveedores.index')
             ->with('success', 'Proveedor eliminado correctamente.');
     }
-    private const MENSAJES = [
-        'required' => 'El :attribute es obligatorio.',
-        'digits' => 'El :attribute debe tener exactamente :digits dígitos.',
-        'unique' => 'Ya existe un proveedor con este :attribute.',
-        'regex' => 'El teléfono debe empezar en 2, 3, 8 o 9.',
-        'string' => 'El :attribute debe ser texto.',
-        'max' => 'El :attribute no debe superar :max caracteres.',
-        'numeric' => 'El :attribute debe ser un número.',
-        'min' => 'El :attribute no puede ser negativo.',
-        'in' => 'Selecciona una :attribute válida.',
-    ];
-
-    private const ATRIBUTOS = [
-        'rtn' => 'RTN',
-        'empresa' => 'razón social',
-        'contacto' => 'asesor comercial',
-        'telefono' => 'teléfono',
-        'categoria' => 'categoría',
-        'limite_credito' => 'límite de crédito',
-        'dias_credito' => 'días de crédito',
-        'estado' => 'estado',
-    ];
+    
 }
